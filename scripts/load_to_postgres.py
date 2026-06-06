@@ -21,14 +21,16 @@ engine = create_engine(DATABASE_URL)
 # Paths
 # -----------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-RAW = PROJECT_ROOT / "data" / "raw"
+PROCESSED = PROJECT_ROOT / "data" / "processed"
 
 # -----------------------------
 # Load dim_fund
 # -----------------------------
 print("\nLoading dim_fund...")
 
-fund_df = pd.read_csv(RAW / "01_fund_master.csv")
+fund_df = pd.read_csv(
+    PROCESSED / "clean_01_fund_master.csv"
+)
 
 fund_df["launch_date"] = pd.to_datetime(
     fund_df["launch_date"],
@@ -70,7 +72,7 @@ print(f"Loaded {len(fund_df)} rows")
 print("\nLoading fact_nav...")
 
 nav_df = pd.read_csv(
-    RAW / "02_nav_history.csv"
+    PROCESSED / "clean_nav.csv"
 )
 
 nav_df.rename(
@@ -106,7 +108,7 @@ print(f"Loaded {len(nav_df)} rows")
 print("\nLoading fact_aum...")
 
 aum_df = pd.read_csv(
-    RAW / "03_aum_by_fund_house.csv"
+    PROCESSED / "clean_03_aum_by_fund_house.csv"
 )
 
 aum_df.rename(
@@ -144,7 +146,7 @@ print(f"Loaded {len(aum_df)} rows")
 print("\nLoading fact_sip_industry...")
 
 sip_df = pd.read_csv(
-    RAW / "04_monthly_sip_inflows.csv"
+    PROCESSED / "clean_04_monthly_sip_inflows.csv"
 )
 
 sip_df = sip_df[
@@ -173,7 +175,7 @@ print(f"Loaded {len(sip_df)} rows")
 print("\nLoading fact_performance...")
 
 perf_df = pd.read_csv(
-    RAW / "07_scheme_performance.csv"
+    PROCESSED / "clean_performance.csv"
 )
 
 perf_df = perf_df[
@@ -211,7 +213,7 @@ print(f"Loaded {len(perf_df)} rows")
 print("\nLoading fact_transactions...")
 
 tx_df = pd.read_csv(
-    RAW / "08_investor_transactions.csv"
+    PROCESSED / "clean_transactions.csv"
 )
 
 tx_df["transaction_date"] = pd.to_datetime(
@@ -252,7 +254,7 @@ print(f"Loaded {len(tx_df)} rows")
 print("\nLoading fact_portfolio...")
 
 portfolio_df = pd.read_csv(
-    RAW / "09_portfolio_holdings.csv"
+    PROCESSED / "clean_09_portfolio_holdings.csv"
 )
 
 portfolio_df["portfolio_date"] = pd.to_datetime(
@@ -282,4 +284,4 @@ portfolio_df.to_sql(
 
 print(f"Loaded {len(portfolio_df)} rows")
 
-print("\nSUCCESS: All data loaded!")
+print("\nSUCCESS: Clean data loaded into PostgreSQL!")
