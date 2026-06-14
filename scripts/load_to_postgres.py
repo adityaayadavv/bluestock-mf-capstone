@@ -1,3 +1,16 @@
+"""
+PostgreSQL Loading Module
+
+Author: Aditya Yadav
+Project: Bluestock Mutual Fund Analytics Platform
+
+Description:
+Loads cleaned and transformed datasets into the
+PostgreSQL database for analytical querying and
+dashboard reporting.
+"""
+
+
 from pathlib import Path
 import pandas as pd
 from sqlalchemy import create_engine
